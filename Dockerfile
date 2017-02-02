@@ -1,7 +1,7 @@
 FROM openjdk:8-jre
 
-ENV http_proxy='http://192.168.0.250:3128'
-ENV https_proxy='http://192.168.0.250:3128'
+#ENV http_proxy='http://'
+#ENV https_proxy='http://'
 
 # grab gosu for easy step-down from root
 ENV GOSU_VERSION 1.7
