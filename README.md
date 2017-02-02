@@ -13,7 +13,7 @@ Runs [Elasticsearch 5.2.0](https://www.elastic.co/guide/en/elasticsearch/referen
 After pulling this repository and changing the Dockerfile first build the new image locally to test it.
 Optionally specify the repository and tag at which to save the new image if the build succeeds.
 ```
-$ docker build -t vandatud/elasticsearch:0.0.1 -t vandatud/elasticsearch:latest -f /path/to/Dockerfile
+$ docker build -t vandatud/elasticsearch:1.0.1 -t vandatud/elasticsearch:latest -f /path/to/Dockerfile
 ```
 
 If this Git repository is pushing back to the server, DockerHub will automatically build this image.
@@ -24,7 +24,7 @@ $ docker login
 ```
 
 ```
-$ docker push vandatud/elasticsearch:0.0.1
+$ docker push vandatud/elasticsearch:1.0.1
 ```
 
 ## How to use this image
