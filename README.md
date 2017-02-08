@@ -49,6 +49,44 @@ e46a689d75a8        vandatud/elasticsearch:latest   "elasticsearch"     Less tha
 
 Once the container is running you can open the web interface under the attached host port (i.e. [localhost:32780](http://localhost:32780))
 
+## Run with Shared drive for import data over snapshot functionality of Elasticsearch
+
+First you must activate you drive as shared drive in the Docker Engine. 
+
+Now you can the Docker container with:
+```
+$ docker run -d -t -p 9200 -p 9300 --name vanda-elasticsearch_inst -v /path/to/local/backup/folder:/backup_elasticsearch vandatud/elasticsearch:latest
+```
+
+All following instructions are from [Elasticsearch](https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-snapshots.html)
+Now you must configure the Shared File System Repository in Elasticsearch:
+```
+$ curl -XPUT 'http://localhost:32781/_snapshot/backup_elasticsearch' -d '
+{
+    "type": "fs",
+    "settings": {
+        "location": "/backup_elasticsearch",
+        "compress": true
+    }
+}'
+```
+
+You can create a Snapshot with
+```
+$ curl -XPUT 'http://localhost:32781/_snapshot/backup_elasticsearch/vanda_articles?wait_for_completion=true' -d '
+{
+  "indices": "vanda_articles",
+  "ignore_unavailable": true,
+  "include_global_state": false
+}'
+```
+
+And restore Snapshot with:
+```
+POST http://localhost:32781/_snapshot/backup_elasticsearch/vanda_articles/_restore
+```
+
+
 ## Tips
 
 For a Elasticsearch cluster use a [Docker composer configuration](https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html).
